@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pocket Card Shop · Gotta Sell 'Em All</title>
+<style>
+:root{--bg1:#e9f0ff;--bg2:#fff4c9;--ink:#14183a;--panel:#ffffffcc;--edge:#14183a;--red:#ee3b3b;--blue:#2f6bff;--yellow:#ffcb05;--glow:#2f6bff55;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#0b0f2e;--bg2:#1b1450;--ink:#fff6cf;--panel:#1c2256cc;--edge:#ffcb05;--glow:#ffcb0555}}
+:root[data-theme="dark"]{--bg1:#0b0f2e;--bg2:#1b1450;--ink:#fff6cf;--panel:#1c2256cc;--edge:#ffcb05;--glow:#ffcb0555}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;line-height:1.45;background:radial-gradient(circle at 20% 0,var(--bg2),transparent 55%),radial-gradient(circle at 90% 30%,var(--glow),transparent 45%),var(--bg1);background-attachment:fixed;overflow-x:hidden}
+.pb{--s:60px;width:var(--s);height:var(--s);border-radius:50%;border:calc(var(--s)/12) solid #14183a;background:linear-gradient(180deg,var(--red) 0 43%,#14183a 43% 57%,#fff 57%);position:relative;flex:none}
+.pb::after{content:"";position:absolute;left:50%;top:50%;width:30%;height:30%;margin:-15%;border-radius:50%;background:#fff;border:calc(var(--s)/14) solid #14183a}
+.float{position:fixed;z-index:0;opacity:.18;animation:fl 14s ease-in-out infinite;pointer-events:none}
+@keyframes fl{50%{transform:translateY(-40px) rotate(180deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.wrap{position:relative;z-index:1}
+.ticker{background:var(--red);color:#fff;font-weight:800;overflow:hidden;white-space:nowrap;border-bottom:4px solid #14183a}
+.ticker div{display:inline-block;padding:7px 0;animation:tk 28s linear infinite}
+@keyframes tk{to{transform:translateX(-50%)}}
+.hero{text-align:center;padding:42px 16px 24px}
+.hero .pb{--s:96px;margin:0 auto 14px;animation:wob 3s ease-in-out infinite;box-shadow:0 10px 30px var(--glow)}
+@keyframes wob{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg)}}
+h1{margin:0;font-size:clamp(2.2rem,9vw,4.4rem);line-height:1;color:var(--yellow);-webkit-text-stroke:3px var(--blue);paint-order:stroke fill;text-shadow:4px 5px 0 var(--blue);letter-spacing:1px}
+.hero p{max-width:520px;margin:14px auto 0;font-weight:700}
+.cta{display:inline-block;margin-top:18px;background:var(--yellow);color:#14183a;font-weight:900;text-decoration:none;padding:12px 24px;border-radius:999px;border:4px solid #14183a;box-shadow:0 5px 0 #14183a}
+.cta:active{transform:translateY(4px);box-shadow:0 1px 0 #14183a}
+.stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:22px auto 0;padding:0 16px}
+.stat{background:var(--panel);border:3px solid var(--edge);border-radius:14px;padding:8px 18px;text-align:center;backdrop-filter:blur(6px)}
+.stat b{display:block;font-size:1.5rem;color:var(--yellow);-webkit-text-stroke:1px #14183a;paint-order:stroke fill}
+main{max-width:1060px;margin:0 auto;padding:20px 16px 30px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:26px}
+.filters button{font:inherit;font-weight:800;border:3px solid var(--edge);background:var(--panel);color:var(--ink);padding:7px 15px;border-radius:999px;cursor:pointer;transition:.15s}
+.filters button:hover{transform:translateY(-2px)}
+.filters button.on{background:var(--yellow);color:#14183a;box-shadow:0 4px 0 #14183a;transform:translateY(-3px)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:24px}
+.card{--mx:50%;--my:50%;position:relative;background:linear-gradient(160deg,var(--c),#fff3 70%),var(--panel);border:6px solid var(--yellow);outline:3px solid #14183a;border-radius:18px;padding:10px;display:flex;flex-direction:column;gap:8px;color:#14183a;box-shadow:0 10px 24px #0004;transition:transform .12s;overflow:hidden;animation:pop .5s both}
+@keyframes pop{from{opacity:0;transform:translateY(20px) scale(.95)}}
+.card::after{content:"";position:absolute;inset:0;border-radius:12px;pointer-events:none;opacity:0;transition:opacity .2s;mix-blend-mode:color-dodge;background:radial-gradient(circle at var(--mx) var(--my),#fff9,transparent 40%),linear-gradient(115deg,transparent 20%,#ff77c8aa 35%,#77ffd8aa 50%,#ffe777aa 65%,transparent 80%)}
+.card:hover::after{opacity:.75}
+.top{display:flex;justify-content:space-between;align-items:center;font-weight:900}
+.top .hp{color:#d11}
+.name{font-size:1.2rem;font-weight:900;text-shadow:0 1px 0 #fff8}
+.art{aspect-ratio:1/1;border-radius:10px;border:4px solid #14183a;display:grid;place-items:center;font-size:4.2rem;background:radial-gradient(circle at 50% 40%,#fff,#fffa 30%,#fff3),repeating-linear-gradient(45deg,#fff4 0 8px,#0000 8px 16px);overflow:hidden}
+.art img{width:100%;height:100%;object-fit:contain}
+.art span{filter:drop-shadow(0 6px 4px #0004)}
+.info{display:flex;justify-content:space-between;font-size:.82rem;font-weight:700;background:#ffffffaa;border-radius:8px;padding:4px 8px}
+.stars{letter-spacing:2px;color:#e8a800}
+.row{display:flex;justify-content:space-between;align-items:center}
+.price{font-size:1.6rem;font-weight:900;color:#c70000;text-shadow:0 1px 0 #fff}
+.energy{width:30px;height:30px;border-radius:50%;border:3px solid #14183a;display:grid;place-items:center;font-size:1rem;background:#fff}
+.buy{display:flex;gap:8px;align-items:center;justify-content:center;text-align:center;text-decoration:none;font-weight:900;background:#14183a;color:var(--yellow);padding:10px;border-radius:12px;border:3px solid #fff;transition:.15s}
+.buy:hover{background:var(--red);color:#fff}
+.how{margin:46px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.step{background:var(--panel);border:3px solid var(--edge);border-radius:16px;padding:16px;text-align:center;backdrop-filter:blur(6px)}
+.step .n{width:44px;height:44px;margin:0 auto 6px;border-radius:50%;background:var(--red);color:#fff;font-weight:900;font-size:1.3rem;display:grid;place-items:center;border:3px solid #14183a}
+.step h3{margin:4px 0}
+.wa{display:block;max-width:420px;margin:30px auto 0;text-align:center;background:#25d366;color:#06331a;font-weight:900;font-size:1.1rem;text-decoration:none;padding:14px;border-radius:999px;border:4px solid #14183a;box-shadow:0 5px 0 #14183a}
+footer{text-align:center;padding:24px 16px;font-size:.8rem;opacity:.75}
+.empty{grid-column:1/-1;text-align:center}
+</style>
+</head>
+<body>
+<div class="float pb" style="--s:90px;left:4%;top:18%"></div>
+<div class="float pb" style="--s:50px;right:6%;top:40%;animation-delay:-4s"></div>
+<div class="float pb" style="--s:70px;left:10%;bottom:8%;animation-delay:-8s"></div>
+<div class="float pb" style="--s:110px;right:3%;bottom:4%;animation-delay:-2s"></div>
+<div class="wrap">
+<div class="ticker"><div id="tk"></div></div>
+<section class="hero">
+  <div class="pb" aria-hidden="true"></div>
+  <h1>Pocket Card Shop</h1>
+  <p>Gotta sell 'em all! Hand-picked Pokémon cards from a real trainer's collection, ready for your binder.</p>
+  <a class="cta" href="#cards">Browse the cards ⚡</a>
+  <div class="stats">
+    <div class="stat"><b id="n1">0</b>cards</div>
+    <div class="stat"><b id="n2">0</b>types</div>
+    <div class="stat"><b>100%</b>trainer-owned</div>
+  </div>
+</section>
+<main id="cards">
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="grid"></div>
+  <section class="how">
+    <div class="step"><div class="n">1</div><h3>Pick a card</h3><p>Find the Pokémon you want and tap the button.</p></div>
+    <div class="step"><div class="n">2</div><h3>Chat on WhatsApp</h3><p>We agree on price, shipping and payment.</p></div>
+    <div class="step"><div class="n">3</div><h3>Card on its way</h3><p>Packed in a sleeve and top loader. 📦</p></div>
+  </section>
+  <a class="wa" id="wa" href="#" target="_blank" rel="noopener">💬 Chat me on WhatsApp</a>
+</main>
+<footer>Fan-made shop · Not affiliated with Nintendo, Game Freak or The Pokémon Company.</footer>
+</div>
+<script>
+// ✏️ Edit your cards here. Add "img" (photo) to show a picture instead of the emoji.
+const WA = "6289675245454"; // WhatsApp 0896-7524-5454
+const CARDS = [
+  {name:"Pikachu",   no:"025", type:"Electric", hp:60,  stars:1, emoji:"⚡", set:"Base Set",   cond:"Near Mint",      price:"$12"},
+  {name:"Charizard", no:"006", type:"Fire",     hp:120, stars:3, emoji:"🔥", set:"Evolutions", cond:"Lightly Played", price:"$85"},
+  {name:"Squirtle",  no:"007", type:"Water",    hp:50,  stars:1, emoji:"💧", set:"151",        cond:"Mint",           price:"$4"},
+  {name:"Bulbasaur", no:"001", type:"Grass",    hp:50,  stars:1, emoji:"🌿", set:"151",        cond:"Near Mint",      price:"$4"},
+  {name:"Gengar",    no:"094", type:"Psychic",  hp:80,  stars:2, emoji:"👻", set:"Fossil",     cond:"Near Mint",      price:"$18"},
+  {name:"Mewtwo",    no:"150", type:"Psychic",  hp:100, stars:3, emoji:"🔮", set:"Base Set",   cond:"Played",         price:"$40"},
+  {name:"Eevee",     no:"133", type:"Normal",   hp:50,  stars:2, emoji:"⭐", set:"Jungle",     cond:"Mint",           price:"$9"},
+  {name:"Snorlax",   no:"143", type:"Normal",   hp:90,  stars:2, emoji:"😴", set:"Jungle",     cond:"Near Mint",      price:"$15"}
+];
+const COL = {Electric:"#ffd93b",Fire:"#ff7a45",Water:"#58a6ff",Grass:"#5ed16a",Psychic:"#c277ee",Normal:"#c9c9b4"};
+const ICON = {Electric:"⚡",Fire:"🔥",Water:"💧",Grass:"🌿",Psychic:"🔮",Normal:"⚪"};
+let active = "All";
+const types = ["All", ...new Set(CARDS.map(c => c.type))];
+const $ = id => document.getElementById(id);
+$("n1").textContent = CARDS.length; $("n2").textContent = types.length - 1;
+$("wa").href = "https://wa.me/" + WA + "?text=" + encodeURIComponent("Hi! I'm interested in your Pokémon cards!");
+const line = "⚡ A wild deal appears!  ·  🔥 Cards for sale  ·  💧 Chat on WhatsApp  ·  🌿 Gotta sell 'em all  ·  🔮 New cards added often  ·  ";
+$("tk").textContent = line.repeat(8);
+function render(){
+  $("filters").innerHTML = "";
+  types.forEach(t => {
+    const b = document.createElement("button");
+    b.textContent = (ICON[t] || "🎴") + " " + t; b.className = t === active ? "on" : "";
+    b.onclick = () => { active = t; render(); };
+    $("filters").appendChild(b);
+  });
+  const list = CARDS.filter(c => active === "All" || c.type === active);
+  $("grid").innerHTML = list.length ? list.map((c, i) => {
+    const msg = encodeURIComponent("Hi! I want to buy the " + c.name + " card (" + c.set + ", " + c.price + ")!");
+    return `<article class="card" style="--c:${COL[c.type] || "#ccc"};animation-delay:${i * 60}ms">
+      <div class="top"><span>${c.type}</span><span class="hp">HP ${c.hp}</span></div>
+      <div class="name">${c.name} <small>#${c.no}</small></div>
+      <div class="art">${c.img ? `<img src="${c.img}" alt="${c.name} card">` : `<span>${c.emoji}</span>`}</div>
+      <div class="info"><span>${c.set}</span><span class="stars">${"★".repeat(c.stars)}</span><span>${c.cond}</span></div>
+      <div class="row"><div class="price">${c.price}</div><div class="energy">${ICON[c.type] || "⚪"}</div></div>
+      <a class="buy" href="https://wa.me/${WA}?text=${msg}" target="_blank" rel="noopener">💬 Catch it on WhatsApp</a>
+    </article>`;
+  }).join("") : '<p class="empty">No cards here yet!</p>';
+  document.querySelectorAll(".card").forEach(el => {
+    el.onmousemove = e => {
+      const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      el.style.setProperty("--mx", x * 100 + "%"); el.style.setProperty("--my", y * 100 + "%");
+      el.style.transform = `perspective(700px) rotateY(${(x - .5) * 14}deg) rotateX(${(.5 - y) * 14}deg) translateY(-4px)`;
+    };
+    el.onmouseleave = () => el.style.transform = "";
+  });
+}
+render();
+</script>
+</body>
+</html>
